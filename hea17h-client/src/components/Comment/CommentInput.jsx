@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import * as Api from '../../api';
@@ -12,23 +12,24 @@ function CommentInput({
     handleClick,
     updateComment,
 }) {
-    const [comment, setComment] = useState('');
+    const comment = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (clickEditBtn) {
-            setComment(content);
+            comment.current.value = content;
+            comment.current = content;
         }
     }, []);
 
     const inputComment = e => {
-        setComment(e.target.value);
+        comment.current = e.target.value;
     };
 
     const addComment = async () => {
         const res = await Api.post('/diets/addComment', {
             dietId,
-            comment,
+            comment: comment.current,
         });
 
         if (res.status === 200) {
@@ -40,16 +41,16 @@ function CommentInput({
         await Api.patch('/diets/modifyComment', {
             dietId,
             commentId,
-            content: comment,
+            content: comment.current,
         });
 
         handleClick();
-        updateComment(comment);
+        updateComment(comment.current);
     };
 
     return (
         <Root>
-            <textarea value={comment} onChange={inputComment} />
+            <textarea onChange={inputComment} ref={comment} />
             <div>
                 <Button
                     width="10rem"

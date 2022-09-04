@@ -14,7 +14,6 @@ function Comment({ commentInfo, myId, dietId }) {
     }, []);
 
     const { comments } = useSelector(state => state.comment);
-
     const expertsId = comments.map(({ expert }) => expert?.user);
 
     return (
