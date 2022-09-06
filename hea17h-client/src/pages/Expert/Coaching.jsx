@@ -32,7 +32,6 @@ function Coaching() {
         getData();
     }, []);
 
-    console.log(dietList);
     return (
         <div>
             <Nav />

@@ -15,7 +15,6 @@ function DietDetail({ meal }) {
         imgName = 'night';
     }
 
-    console.log(meal);
     return (
         <DietContainer key={meal._id}>
             <ImageBadgeContainer>

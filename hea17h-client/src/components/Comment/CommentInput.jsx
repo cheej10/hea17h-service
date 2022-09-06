@@ -18,7 +18,6 @@ function CommentInput({
     useEffect(() => {
         if (clickEditBtn) {
             comment.current.value = content;
-            comment.current = content;
         }
     }, []);
 
